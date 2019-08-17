@@ -1,0 +1,4 @@
+wordpress_title: sample
+wordpress_admin_user: root
+wordpress_admin_password: password
+wordpress_admin_email: foo@bar.jp

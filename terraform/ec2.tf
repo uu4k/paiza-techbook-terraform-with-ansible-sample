@@ -76,5 +76,6 @@ resource "aws_instance" "sample" {
 
   tags = {
     role = "wordpress"
+    env  = "development"
   }
 }
