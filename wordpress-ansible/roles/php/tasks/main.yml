@@ -1,0 +1,16 @@
+- name: check php version
+  shell: php -v | grep "PHP 7.3"
+  register: check_php
+  changed_when: False
+  failed_when: False
+- name: install php
+  shell: amazon-linux-extras install -y php7.3
+  when: check_php.rc == 1
+- name: install mysql
+  yum: name="{{ item }}" state=latest lock_timeout=180
+  with_items:
+    - mysql-devel
+    - mysql
+- name: restart httpd
+  service: name=httpd state=restarted enabled=yes
+  when: check_php.rc == 1

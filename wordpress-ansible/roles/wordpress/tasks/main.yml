@@ -1,0 +1,49 @@
+- name: download wordpress cli
+  get_url:
+    url: "https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar"
+    dest: "/usr/local/bin/wp"
+    mode: 0755
+
+- name: exist wordpress dir
+  stat: path=/var/www/html/wordpress
+  register: exist_dir
+
+- name: create wordpress dir
+  file: dest=/var/www/html/wordpress
+    state=directory
+    mode=0755
+    group=apache
+    owner=apache
+  when: not exist_dir.stat.exists
+
+- name: download wordpress core
+  become_user: apache
+  shell: |
+    /usr/local/bin/wp core download --locale=ja
+  when: not exist_dir.stat.exists
+  args:
+    chdir: /var/www/html/wordpress
+
+- name: setup wordpress config
+  become_user: apache
+  shell: |
+    /usr/local/bin/wp core config \
+    --dbname={{ wordpress_db }} \
+    --dbuser={{ wordpress_db_user }} \
+    --dbpass={{ wordpress_db_password }} \
+    --dbhost={{ wordpress_db_host }} \
+    --dbprefix=wp_ \
+    --path=/var/www/html/wordpress
+  when: not exist_dir.stat.exists
+
+- name: install wordpress
+  become_user: apache
+  shell: |
+    /usr/local/bin/wp core install \
+    --title={{ wordpress_title }} \
+    --admin_user={{ wordpress_admin_user }} \
+    --admin_password={{ wordpress_admin_password }} \
+    --admin_email={{ wordpress_admin_email }} \
+    --url=http://{{ wordpress_ip }}/wordpress \
+    --path=/var/www/html/wordpress
+  when: not exist_dir.stat.exists

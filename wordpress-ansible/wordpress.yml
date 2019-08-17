@@ -1,0 +1,10 @@
+- hosts: role_wordpress
+  become: yes
+  remote_user: ec2-user
+  vars:
+    wordpress_url: https://ja.wordpress.org/latest-ja.tar.gz
+    ansible_ssh_extra_args: "-o StrictHostKeyChecking=no"
+  roles:
+    - httpd
+    - php
+    - wordpress
