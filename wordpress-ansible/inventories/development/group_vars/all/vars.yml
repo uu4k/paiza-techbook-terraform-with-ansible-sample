@@ -1,9 +1,4 @@
 wordpress_title: sample
-wordpress_ip: 18.179.10.2
 wordpress_admin_user: root
 wordpress_admin_password: password
 wordpress_admin_email: foo@bar.jp
-wordpress_db_host: terraform-20190817041539283200000001.czk0ukkzrj97.ap-northeast-1.rds.amazonaws.com
-wordpress_db: sample
-wordpress_db_user: root
-wordpress_db_password: password
