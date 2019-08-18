@@ -90,14 +90,14 @@ ${aws_instance.sample.public_ip}" > ./tmp/development_invenstory
     command = <<ANSIBLEEXEC
     sleep 10 && \
     ansible-playbook -i ./tmp/development_invenstory \
-    --private-key=/path/to/ec2user/key.pem \
-    -e '@../wordpress-ansible/inventories/development/group_vars/all/vars.yml' \
+    --private-key=/path/to/ec2user/key \
+    -e '@inventories/development/group_vars/all/vars.yml' \
     -e 'wordpress_ip=${aws_instance.sample.public_ip} \
     wordpress_db_host=${aws_db_instance.sample.address} \
     wordpress_db=${aws_db_instance.sample.name} \
     wordpress_db_user=${aws_db_instance.sample.username} \
     wordpress_db_password=${aws_db_instance.sample.password}' \
-    ../wordpress-ansible/wordpress.yml 
+    wordpress.yml 
     ANSIBLEEXEC
   }
 }
