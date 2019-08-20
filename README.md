@@ -38,7 +38,6 @@
 ## 実行方法
 
 ```
-$ git clone https://github.com/uu4k/paiza-techbook-terraform-with-ansible-sample
 $ cd paiza-techbook-terraform-with-ansible-sample
 $ terraform init
 $ terraform apply
