@@ -42,7 +42,7 @@ $ cd paiza-techbook-terraform-with-ansible-sample
 $ terraform init
 $ terraform apply
 ### 作成されたec2とpublic_ipとrdsのendpoint確認
-### inventoryのhostsとgroup_varsに確認した内容を反映
+### group_varsに確認した内容を反映
 $ TF_STATE=. ansible-playbook --private-key=/path/to/ec2user/key --inventory-file=$(which terraform-inventory) wordpress.yml
 ### 片付けはterraform destroyで
 ```
