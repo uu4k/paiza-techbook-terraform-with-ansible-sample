@@ -41,8 +41,6 @@
 $ cd paiza-techbook-terraform-with-ansible-sample
 $ terraform init
 $ terraform apply
-### 作成されたec2とpublic_ipとrdsのendpoint確認
-### group_varsに確認した内容を反映
-$ TF_STATE=. ansible-playbook --private-key=/path/to/ec2user/key --inventory-file=$(which terraform-inventory) wordpress.yml
+$ TF_STATE=. ansible-playbook --private-key=/path/to/ec2user/key --inventory-file=$(which terraform-inventory) --extra-vars="$(terraform show -json | jq -r '[ .values.root_module.resources[] | (.address | gsub("\\."; "_"))  as $address | .values | keys[] as $k | "\($address)__\($k)='\''\(.[$k])'\''" ] | join(" ")')" wordpress.yml
 ### 片付けはterraform destroyで
 ```
